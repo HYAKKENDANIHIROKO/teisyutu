@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\News;
+use App\Newshistory;
+use Carbon\Carbon;
 
 class NewsController extends Controller
 {
@@ -68,6 +70,10 @@ class NewsController extends Controller
         unset($news_form['remove']);
         unset($news_form['_token']);
         $news->fill($news_form)->save();
+        $newshistory = new Newshistory();
+        $newshistory->news_id = $news->id;
+        $newshistory->edited_at = Carbon::now();
+        $newshistory->save();
         return redirect('admin/news');
     }
     public function delete(Request $request)

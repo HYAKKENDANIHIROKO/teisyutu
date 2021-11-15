@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Profile; 
+use App\Profile;
+use App\Profilehistory;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -38,7 +40,23 @@ class ProfileController extends Controller
         $profile = Profile::find($request->id);
         $profile_form = $request->all();
         unset($profile_form['_token']);
-        $profile->fill($news_form)-save();
+        $profile->fill($profile_form)->save();
+        
+        $profilehistory = new Profilehistory();
+        $profilehistory->profile_id = $profile->id;
+        $profilehistory->edited_at = Carbon::now();
+        $profilehistory->save();
+        
         return redirect('admin/profile');
-    } 
+    }
+    public function index(Request $request)
+    {
+        $cond_title = $request->cond_title;
+        if($cond_title != '') {
+            $posts = Profile::Where('title',$cond_title)->get();    
+        } else {
+            $posts = Profile::all();
+        }
+        return view('admin.profile.index', ['posts' => $posts,'cond_title' => $cond_title]);
+    }
 }

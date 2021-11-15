@@ -10,5 +10,9 @@ class News extends Model
     public static $rules = array(
         'title' => 'required',
         'body' => 'required',
-        );
+    );
+    public function newshistories()
+    {
+        return $this->hasMany('App\Newshistory');
+    }
 }
