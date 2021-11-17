@@ -11,13 +11,13 @@
                             <div class="caption mx-auto">
                                 
                                 <div class="name p-2">
-                                    <h1>{{ str_limit($headline->name, 50) }}</h1>
+                                    <h1>{{ str_limit($headline->name, 40) }}</h1>
                                 </div>
                                 <div class="gender p-2">
-                                    <h1>{{ str_limit($headline->gender, 50) }}</h1>
+                                    <h1>{{ str_limit($headline->gender, 40) }}</h1>
                                 </div>
                                 <div class="hobby p-2">
-                                    <h1>{{ str_limit($headline->hobby, 50) }}</h1>
+                                    <h1>{{ str_limit($headline->hobby, 40) }}</h1>
                                 </div>
                             </div>
                         </div>
